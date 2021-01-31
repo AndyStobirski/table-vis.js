@@ -26,7 +26,14 @@ const initTableVis = function(table){
           let tabular_container_fluid;
           // init the canvas element and the title datas.
           if(!this.initial){
-            Object.assign(target,{ data:{},rowTitle:rowTitle(table), colTitle:colTitle(table) })
+            Object.assign(target
+              ,{ 
+                data:{}
+                , rowTitle:rowTitle(table)
+                , colTitle:colTitle(table) 
+                , tableChanged: false
+              });
+
             // create the table_vis containers div elements
             insertCss();
 
@@ -38,13 +45,14 @@ const initTableVis = function(table){
           else
             tabular_container_fluid = document.querySelector('.tabular_container_fluid');
 
-            initRowDragger(table);
-            initColDragger(table);
             let btnContainer = initBtn(target,tabular_container_fluid);
+
+            initRowDragger(table, btnContainer, target, tabular_container_fluid);
+            initColDragger(table, btnContainer, target, tabular_container_fluid);
 
             //change the cursor style. 改变样式 {cursor:pointer}
             className.addClass(tBody,'tab_vis_tbody');
-            // 单元格事件委托, 只绑定在tbody上。
+
             //event delegation ,td -> tbody
             tBody.addEventListener('click',
             (event)=>{
@@ -55,7 +63,20 @@ const initTableVis = function(table){
               btnContainer.style.left = left+'px';
               btnContainer.style.top = top+'px';
               btnContainer.style.display = 'block'
+
               target.ele=e.target
+
+              //recalculate the row and column titles on click
+              //this takes into account the fact that rows and columns
+              //can be reorderd
+              if(target.tableChanged){
+
+                target.rowTitle = rowTitle(table);
+                target.colTitle = colTitle(table); 
+                target.tableChanged = false; //set in InitColDragger/InitRowDragger
+
+              }
+              
             })
     }
     else

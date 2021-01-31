@@ -1,5 +1,16 @@
-/** Add functions to draw rows and columns */
-const initColDragger = (table) => {
+/**
+ * Add column dragging functionality
+ * @param {*} table DOM object which represents the table being examined
+ * @param {*} btnContainer Data manipulation menu
+ * @param {*} target Data model
+ * @param {*} tabular_container_fluid Graph window
+ * 
+ * //TODO: Add code to hide data selection window when dragging begins
+ * //TODO: Add code to update data model when dragging completes
+ * TODO: Investigate the effects of CSS on cloned table movement during dragging process
+ * TODO: Investigate merging with row drag
+ */
+const initColDragger = (table, btnContainer, target,tabular_container_fluid) => {
 
     let draggingEle;
     let draggingColumnIndex;
@@ -86,6 +97,14 @@ const initColDragger = (table) => {
     };
 
     const mouseDownHandler = function(e) {
+
+        //hide any displayed popups
+        btnContainer.style.display='none';
+        tabular_container_fluid.style.display='none';
+
+        //mark table changed
+        target.tableChanged = true;
+
         draggingColumnIndex = [].slice.call(table.querySelectorAll('th')).indexOf(e.target);
 
         // Determine the mouse position
