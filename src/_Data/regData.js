@@ -5,18 +5,22 @@ import cateData from './cateData';
 import className from 'className'
 
 /**
+ * Process provided row or column data and return an object.
  * 
- * @param {*} cell 
- * @param {*} idx 
+ * TODO: Investigate data formats testings
+ * 
+ * @param {*} cell Array that consist of an array of structure elements and array of titles. If a row is selected, col titles, else row titles
+ * @param {*} idx Apply highlight to provided group of cells
  */
 const regData=(cell,idx)=>{
-  
+
   let data =[];
   let title =[];
   let oriData =[];
 
-  // a series of reg expression.
-  let pre = cell[0][0].innerHTML.replace(/\,/g,'')
+  // a series of reg expression. 
+  // attempts data diagnosis by examining the first cell in the sequence
+  let pre = cell[0][0].innerHTML.replace(/\,/g,'') 
   let reg = /^\d+\.?\d*$/;
   let percentFormat = /^\d+\.?\d+\%$/
   let fraction =/^\d+\/\d+$/

@@ -1,5 +1,11 @@
 'use strict'
-
+/**
+ * Regex function testing provided structure data
+ * @param {*} cell 
+ * @param {*} data 
+ * @param {*} title 
+ * @param {*} oriData 
+ */
 const numericalData=(cell,data,title,oriData)=>{
   for(let i =0;i<cell[0].length;){
       let val = cell[0][i].innerHTML

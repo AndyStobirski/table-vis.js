@@ -3,7 +3,7 @@
 import regData from './regData';
 
 /**
- * Return an object that represents the selected row
+ * Return an object that represents the selected row's data
  * 
  * @param {*} ele Selected table cell
  * @param {*} title Array of row tiles
