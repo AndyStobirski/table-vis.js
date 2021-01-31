@@ -10,9 +10,12 @@ import createTableVisContainer from '../_DOM/createTableVisContainer'
 import initBtn from './initBtn'
 import colTitle from './initColTitle'
 import rowTitle from './initRowTitle'
+import initRowDragger from './initRowDragger'
+import initColDragger from './InitColDragger'
 
 const tableElement = '[object HTMLTableElement]'
 
+/**Begin here */
 const initTableVis = function(table){
     if(Object.prototype.toString.call(table)==tableElement){
 
@@ -35,6 +38,8 @@ const initTableVis = function(table){
           else
             tabular_container_fluid = document.querySelector('.tabular_container_fluid');
 
+            initRowDragger(table);
+            initColDragger(table);
             let btnContainer = initBtn(target,tabular_container_fluid);
 
             //change the cursor style. 改变样式 {cursor:pointer}
