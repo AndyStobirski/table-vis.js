@@ -8,6 +8,9 @@ import faColumns from '@fortawesome/fontawesome-free-solid/faColumns'
 import faBraille from '@fortawesome/fontawesome-free-solid/faBraille'
 import faFileWord from '@fortawesome/fontawesome-free-solid/faFileWord'
 
+/**
+ * Add font awesome files
+ */
 const insertCss=()=>{
   fontawesome.library.add(faChartBar)
   fontawesome.library.add(faChartPie)
