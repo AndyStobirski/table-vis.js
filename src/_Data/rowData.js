@@ -2,6 +2,13 @@
 
 import regData from './regData';
 
+/**
+ * Return an object that represents the selected row
+ * 
+ * @param {*} ele Selected table cell
+ * @param {*} title Array of row tiles
+ * @param {*} idx integer 
+ */
 const rowData = function(ele,title,idx){
    let row = ele.parentNode;
    let rowList = Array.from(row.children)

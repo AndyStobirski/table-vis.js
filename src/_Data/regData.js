@@ -4,10 +4,17 @@ import numericalData from './numericalData';
 import cateData from './cateData';
 import className from 'className'
 
+/**
+ * 
+ * @param {*} cell 
+ * @param {*} idx 
+ */
 const regData=(cell,idx)=>{
+  
   let data =[];
   let title =[];
   let oriData =[];
+
   // a series of reg expression.
   let pre = cell[0][0].innerHTML.replace(/\,/g,'')
   let reg = /^\d+\.?\d*$/;

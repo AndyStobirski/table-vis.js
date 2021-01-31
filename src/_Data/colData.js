@@ -2,6 +2,13 @@
 
 import regData from './regData'
 
+/**
+ * * Return an object that represents the selected cols's data
+ * 
+ * @param {*} ele 
+ * @param {*} title 
+ * @param {*} idx 
+ */
 const colData = function(ele,title,idx){
   let row = ele.parentNode;
   let tbody = row.parentNode.children;
