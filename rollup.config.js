@@ -56,8 +56,8 @@ export default [{
 		postcss({
       plugins: []
     }),
-		// resolve(),
-		// commonjs(),
+		//resolve(),
+		//commonjs(),
 		uglify()
 	]
 }];

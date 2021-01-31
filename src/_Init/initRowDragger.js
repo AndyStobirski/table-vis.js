@@ -85,7 +85,8 @@ const initRowDragger = (table, btnContainer, target,tabular_container_fluid) => 
 
         //hide any displayed popups
         btnContainer.style.display='none';
-        tabular_container_fluid.style.display='none';
+        //TODO: This will produce an exception when the window isn't displayed. Fix it    
+        tabular_container_fluid.lastChild.click(); //clicking closes the window
 
         //mark table changed
         target.tableChanged = true;        

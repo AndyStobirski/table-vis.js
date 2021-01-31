@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset='uft-8' />
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+
+  <style>
+    html {
+      background: #fff;
+    }
+
+    p {
+      text-align: center;
+      width: 80%;
+      margin: auto;
+      margin-bottom: 10px;
+    }
+
+    #vis_table {
+      width: 80%;
+      margin-bottom: 50px;
+    }
+
+    table,
+    th,
+    td {
+      margin: 0 auto;
+      text-align: center;
+      background: #f7f7f7;
+    }
+
+    td {
+      width: 60px;
+    }
+
+    tbody td:first-child {
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <table>
+    <thead>
+      <tr>
+        <th>a</th>
+        <th>b</th>
+        <th>c</th>
+        <th>d</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>6</td>
+        <td>7</td>
+        <td>8</td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td>10</td>
+        <td>11</td>
+        <td>12</td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+<script type="text/javascript">
+
+  let table = document.getElementsByTagName('table')[0];
+
+  let rows = table.getElementsByTagName('tr');
+
+  console.log(rows);
+
+
+</script>
+
+</html>

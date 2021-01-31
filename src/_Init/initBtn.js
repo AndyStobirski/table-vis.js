@@ -7,6 +7,13 @@ import rowData from 'rowData'
 import bar from 'bar'
 import initHead from './initHead'
 
+/**
+ * Build and insert the action button which is use to start data examination for row
+ * and column upon an appropriate click.
+ * 
+ * @param {*} target Data object 
+ * @param {*} tcf 
+ */
 const initBtn = (target,tcf) => {
   // tcf = tcf
   let btnContainer = document.createElement('div');
@@ -24,17 +31,25 @@ const initBtn = (target,tcf) => {
   btnBox.appendChild(rowBtn);
   btnBox.appendChild(columnBtn);
   btnContainer.appendChild(btnBox);
+
+
   // append button container
   document.body.appendChild(btnContainer);
-  // row button event
 
+  // row button event
   rowBtn.addEventListener('click',
     ()=>{
       document.querySelectorAll('.tabular_highlight').forEach(function(d){
         className.removeClass(d,'tabular_highlight');
       })
       btnContainer.style.display='none';
-      let row = rowData(target.ele,target.rowTitle,1);
+      let row = rowData
+        (
+          target.ele
+          ,target.rowTitle
+          ,1
+        );
+
       let headInx = colData(target.ele,target.colTitle,0).index;
 
       Object.assign(target.data,{
@@ -64,6 +79,7 @@ const initBtn = (target,tcf) => {
 
     bar(row.oriData,row.data,row.index,'row',row.title,row.titleIdx);
     })
+    
   // column button event
   columnBtn.addEventListener('click',
     ()=>{
@@ -71,7 +87,13 @@ const initBtn = (target,tcf) => {
         className.removeClass(d,'tabular_highlight');
       })
      btnContainer.style.display='none'
-     let col = colData(target.ele,target.colTitle,1)
+     let col = colData
+      (
+          target.ele
+          ,target.colTitle
+          ,1
+      );
+      
      let headInx = rowData(target.ele,target.rowTitle,0).index;
 
     Object.assign(target.data,{

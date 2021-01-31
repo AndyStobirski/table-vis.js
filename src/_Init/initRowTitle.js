@@ -1,5 +1,8 @@
 'use strict';
-
+/**
+ * Return an array of the col headings
+ * @param {*} table 
+ */
 const rowTitle = (table)=>{
     let head = table.querySelector('thead');
     let title = head.querySelector('tr');
