@@ -1,3 +1,4 @@
+import className from 'className';
 
 /**
  * Add row dragging functionality
@@ -83,14 +84,13 @@ const initRowDragger = (table, btnContainer, target,tabular_container_fluid) => 
 
     const mouseDownHandler = function(e) {
 
+        isDraggingStarted = false;
+
         //hide any displayed popups
         btnContainer.style.display='none';
-        //TODO: This will produce an exception when the window isn't displayed. Fix it    
-        tabular_container_fluid.lastChild.click(); //clicking closes the window
-
-        //mark table changed
-        target.tableChanged = true;        
-
+        // //TODO: This will produce an exception when the window isn't displayed. Fix it    
+        //tabular_container_fluid.lastChild.click(); //clicking closes the window
+  
         // Get the original row
         const originalRow = e.target.parentNode;
         draggingRowIndex = [].slice.call(table.querySelectorAll('tr')).indexOf(originalRow);
@@ -165,6 +165,14 @@ const initRowDragger = (table, btnContainer, target,tabular_container_fluid) => 
     };
 
     const mouseUpHandler = function() {
+
+        if (!isDraggingStarted) //if done nothing, bail ;)
+        {
+            return;
+        }
+        else                
+            target.tableChanged = true;      //mark table changed
+
         // Remove the placeholder
         placeholder && placeholder.parentNode.removeChild(placeholder);
         
@@ -203,6 +211,14 @@ const initRowDragger = (table, btnContainer, target,tabular_container_fluid) => 
         }
 
         const firstCell = row.firstElementChild;
+
+        // var gripHandle = document.createElement('div');
+        // var icon = document.createElement('i');
+        // className.addClass(icon,'fa fa-ellipsis-v');//
+        // gripHandle.appendChild(icon);
+
+        // firstCell.appendChild(gripHandle);
+
         firstCell.classList.add('draggable');
         firstCell.addEventListener('mousedown', mouseDownHandler);
     });

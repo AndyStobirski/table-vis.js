@@ -98,10 +98,13 @@ const initColDragger = (table, btnContainer, target,tabular_container_fluid) => 
 
     const mouseDownHandler = function(e) {
 
+        isDraggingStarted = false;
+
         //hide any displayed popups
         btnContainer.style.display='none';        
+
         //TODO: This will produce an exception when the window isn't displayed. Fix it    
-        tabular_container_fluid.lastChild.click(); //clicking closes the window
+        //tabular_container_fluid.lastChild.click(); //clicking closes the window
 
 
         //mark table changed
@@ -155,7 +158,9 @@ const initColDragger = (table, btnContainer, target,tabular_container_fluid) => 
         
         // // The dragging element is above the previous element
         // // User moves the dragging element to the left
-        if (prevEle && isOnLeft(draggingEle, prevEle)) {
+        if (prevEle && 
+            prevEle.previousElementSibling  &&  //prevent a columb being dragging to the far left
+            isOnLeft(draggingEle, prevEle)) {
             // The current order    -> The new order
             // prevEle              -> placeholder
             // draggingEle          -> draggingEle
@@ -178,6 +183,14 @@ const initColDragger = (table, btnContainer, target,tabular_container_fluid) => 
     };
 
     const mouseUpHandler = function() {
+
+        if (!isDraggingStarted) //if done nothing, bail ;)
+        {
+            return;
+        }
+        else                
+            target.tableChanged = true;      //mark table changed
+
         // // Remove the placeholder
         placeholder && placeholder.parentNode.removeChild(placeholder);
         
@@ -210,7 +223,14 @@ const initColDragger = (table, btnContainer, target,tabular_container_fluid) => 
         document.removeEventListener('mouseup', mouseUpHandler);
     };
 
-    table.querySelectorAll('th').forEach(function(headerCell) {
+    table.querySelectorAll('th').forEach(function(headerCell,index) {
+
+        // Ignore the header
+        // We don't want user to change the order of header
+        if (index === 0) {
+            return;
+        }
+
         headerCell.classList.add('draggable');
         headerCell.addEventListener('mousedown', mouseDownHandler);
     });

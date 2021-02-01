@@ -53,16 +53,28 @@ const initTableVis = function(table){
             //change the cursor style. 改变样式 {cursor:pointer}
             className.addClass(tBody,'tab_vis_tbody');
 
-            //event delegation ,td -> tbody
-            tBody.addEventListener('click',
+            tBody.addEventListener('mousedown',
             (event)=>{
+              btnContainer.style.display = 'none';
+            });
+
+            //event delegation ,td -> tbody
+            tBody.addEventListener('mouseup',
+            (event)=>{
+
               let e = event || window.event;
+
+              if (e.target.parentNode.firstElementChild == e.target)
+                return;
+
               // let target =e.target;
               let left = e.clientX;
               let top = e.clientY;
+
               btnContainer.style.left = left+'px';
               btnContainer.style.top = top+'px';
-              btnContainer.style.display = 'block'
+
+              btnContainer.style.display = 'block';
 
               target.ele=e.target
 
