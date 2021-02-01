@@ -6,6 +6,7 @@ import colData from 'colData'
 import rowData from 'rowData'
 import bar from 'bar'
 import initHead from './initHead'
+import tableVisibility from '../_DOM/tableVisibility'
 
 /**
  * Build and insert the action button which is use to start data examination for row
@@ -15,26 +16,88 @@ import initHead from './initHead'
  * @param {*} tcf 
  */
 const initBtn = (target,tcf) => {
-  // tcf = tcf
+
+  //#region Build menu
+
   let btnContainer = document.createElement('div');
   let btnBox = document.createElement('div');
   // add style of btn
   className.addClass(btnContainer,'tab_vis_btn_container')
   className.addClass(btnBox,'tab_vis_btn')
 
-  let rowBtn = document.createElement('div');
-  let columnBtn = document.createElement('div');
-  rowBtn.innerHTML= 'ROW';
-  columnBtn.innerHTML = 'COL';
-  let click = false;
-  // append row and column button;
-  btnBox.appendChild(rowBtn);
-  btnBox.appendChild(columnBtn);
-  btnContainer.appendChild(btnBox);
+  var row, cell, icon;
+  
+  //ROW functions
+    row = document.createElement('div');
+    className.addClass(row,'tab_vis_btn_Row');
+    btnBox.appendChild(row);
+    cell = document.createElement('div');
+    className.addClass(cell,'tab_vis_btn_Cell');
+    cell.innerHTML= 'ROW';
+    row.appendChild(cell);
 
+    let hideRow = document.createElement('div');
+    row.appendChild(hideRow);
+    className.addClass(hideRow,'tab_vis_btn_Cell tab_vis_btn_Cell_Pointer');//      
+    icon = document.createElement('i');
+    className.addClass(icon,'fa fa-eye-slash');//
+    hideRow.appendChild(icon);
+    
+    let rowBtn = document.createElement('div');
+    row.appendChild(rowBtn);
+    className.addClass(rowBtn,'tab_vis_btn_Cell tab_vis_btn_Cell_Pointer');//        
+    icon = document.createElement('i');
+    className.addClass(icon,'fa fa-search');
+    rowBtn.appendChild(icon);
+    
+
+
+  //COL functions
+    row = document.createElement('div');
+    className.addClass(row,'tab_vis_btn_Row');
+    btnBox.appendChild(row);  
+    cell = document.createElement('div');  
+    className.addClass(cell,'tab_vis_btn_Cell');
+    cell.innerHTML = 'COL';
+    row.appendChild(cell);
+    
+    let hideCol = document.createElement('div');
+    row.appendChild(hideCol);
+    className.addClass(hideCol,'tab_vis_btn_Cell tab_vis_btn_Cell_Pointer');//      
+    icon = document.createElement('i');
+    className.addClass(icon,'fa fa-eye-slash');//
+    hideCol.appendChild(icon);
+    
+    let columnBtn = document.createElement('div');
+    row.appendChild(columnBtn);
+    className.addClass(columnBtn,'tab_vis_btn_Cell tab_vis_btn_Cell_Pointer');//        
+    icon = document.createElement('i');
+    className.addClass(icon,'fa fa-search');
+    columnBtn.appendChild(icon);
+        
+  // append row and column button;
+  btnContainer.appendChild(btnBox);
 
   // append button container
   document.body.appendChild(btnContainer);
+
+  //#endregion Build menu
+
+  hideCol.addEventListener('click',
+  ()=>{
+      let colIndex = rowData(target.ele,target.rowTitle,0).index;
+      tableVisibility.HideColumn( target.entireTable,  colIndex + 1);
+      btnContainer.style.display = 'none';
+  });
+
+  hideRow.addEventListener('click',
+  ()=>{
+      let rowIndex = colData(target.ele,target.colTitle,0).index;
+      tableVisibility.HideRow( target.entireTable,  rowIndex + 1);
+      btnContainer.style.display = 'none';
+  });
+
+  let click = false;
 
   // row button event
   rowBtn.addEventListener('click',
@@ -78,6 +141,8 @@ const initBtn = (target,tcf) => {
     swapTableVis(click,tcf);
 
     bar(row.oriData,row.data,row.index,'row',row.title,row.titleIdx);
+
+    btnContainer.style.display = 'none';
     })
     
   // column button event
@@ -93,7 +158,7 @@ const initBtn = (target,tcf) => {
           ,target.colTitle
           ,1
       );
-      
+
      let headInx = rowData(target.ele,target.rowTitle,0).index;
 
     Object.assign(target.data,{
@@ -122,8 +187,11 @@ const initBtn = (target,tcf) => {
 
     swapTableVis(click,tcf);
 
-    bar(col.oriData,col.data,col.index,'col',col.title,col.titleIdx)
+    bar(col.oriData,col.data,col.index,'col',col.title,col.titleIdx);
+
+    btnContainer.style.display = 'none';
     })
+
   return btnContainer;
 }
 

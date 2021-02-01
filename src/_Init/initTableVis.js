@@ -32,6 +32,7 @@ const initTableVis = function(table){
                 , rowTitle:rowTitle(table)
                 , colTitle:colTitle(table) 
                 , tableChanged: false
+                , entireTable: table
               });
 
             // create the table_vis containers div elements
@@ -64,6 +65,7 @@ const initTableVis = function(table){
 
               let e = event || window.event;
 
+              //the first column consists of headers
               if (e.target.parentNode.firstElementChild == e.target)
                 return;
 
